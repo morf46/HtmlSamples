@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <style>
+        body {
+            background-color: #222;
+            color: #FFF;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        .cardstack {
+            position: relative;
+            margin: 40px;
+        }
+
+        .card {
+            height: 350px;
+            width: 220px;
+            border-radius: 15px;
+            background-color: #f00;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+
+        .card:nth-child(1) {
+            z-index: 100;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            background-color: #f00;
+        }
+
+        .card:nth-child(2) {
+            z-index: 99;
+            opacity: 1;
+            transform: translateY(3vh) scale(0.92);
+            background-color: #ff0;
+        }
+
+        .card:nth-child(3) {
+            z-index: 98;
+            opacity: 1;
+            transform: translateY(6vh) scale(0.84);
+            background-color: #ffc;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="cardstack">
+
+        <div class="card"> <span class="cardcaption">CARD1</span> </div>
+        <div class="card"> <span class="cardcaption">CARD2</span> </div>
+        <div class="card"> <span class="cardcaption">CARD3</span> </div>
+
+    </div>
+
+
+
+    <script>
+        var interactMaxRotation = 15;
+        var interactXThreshold = 100;
+        var topcard = document.getElementsByClassName("card")[0];
+        var topcardRect = topcard.getBoundingClientRect();
+
+        topcard.addEventListener('mousedown', function () {
+
+
+
+
+        });
+        topcard.addEventListener('mouseup', function () {
+
+        });
+        topcard.addEventListener('mousemove', function (event) {
+            var x = event.clientX - topcardRect.left - 120;
+            var y = event.clientY - topcardRect.top - 120;
+            var rot = interactMaxRotation * (x / interactXThreshold);
+            if (rot > interactMaxRotation) {
+                rot = interactMaxRotation;
+            } else if (rot < -interactMaxRotation) {
+                rot = -interactMaxRotation;
+            }
+            topcard.style.transform = "translate3D(" + x + "px, " + y + "px, 0) rotate(" + rot + "deg)";
+            console.log(topcard.left)
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <style>
+        body {
+            background-color: #222;
+            color: #FFF;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        .cardbox {
+            position: relative;
+            margin: 40px;
+            height: 350px;
+            width: 520px;
+            transform: perspective(825px);
+        }
+
+        .shine {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            background: linear-gradient(135deg,
+                    hsla(0, 0%, 100%, .25),
+                    hsla(0, 0%, 100%, 0) 60%);
+            z-index: 8;
+        }
+
+        .card {
+
+            border-radius: 15px;
+            background-color: #111;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="cardbox">
+
+
+        <div class="card">
+            <div class="shine"> </div> 
+            <span class="cardcaption">CARD1</span>
+        </div>
+
+
+
+    </div>
+
+
+
+    <script>
+
+        var topcard = document.getElementsByClassName("card")[0];
+        var shine = document.getElementsByClassName("shine")[0];
+
+
+        topcard.addEventListener('mousedown', function () {
+
+
+
+
+        });
+        topcard.addEventListener('mouseup', function () {
+
+        });
+        topcard.addEventListener('mousemove', function (event) {
+            const rootElemWidth = topcard.parentNode.getBoundingClientRect().width;
+            const rootElemHeight = topcard.parentNode.getBoundingClientRect().height;
+            const pageX = event.clientX;
+            const pageY = event.clientY;
+            const bodyScrollTop = document.body.scrollTop || document.getElementsByTagName('html')[0].scrollTop;
+            const bodyScrollLeft = document.body.scrollLeft;
+            const offsets = topcard.getBoundingClientRect();
+            const wMultiple = 320 / rootElemWidth;
+            const offsetX = 0.52 - (pageX - offsets.left - bodyScrollLeft) / rootElemWidth;
+            const offsetY = 0.52 - (pageY - offsets.top - bodyScrollTop) / rootElemHeight;
+            const dy = pageY - offsets.top - bodyScrollTop - rootElemHeight / 2;
+            const dx = pageX - offsets.left - bodyScrollLeft - rootElemWidth / 2;
+            const yRotate = (offsetX - dx) * (0.07 * wMultiple);
+            const xRotate = (dy - offsetY) * (0.1 * wMultiple);
+            const arad = Math.atan2(dy, dx);
+            const rawAngle = (arad * 180) / Math.PI - 90;
+            const angle = rawAngle < 0 ? rawAngle + 360 : rawAngle;
+
+
+
+            topcard.style.transform = "rotateX(" + xRotate + "deg) rotateY(" + yRotate + "deg)";
+            var layerCount = 2;
+            shine.style.background = "linear-gradient(" + angle + "deg, rgba(255, 255, 255, " + (pageY - offsets.top - bodyScrollTop) / (rootElemHeight * 0.4) + ") 0%, rgba(255, 255, 255, 0) 80%)";
+            shine.style.transform = "translateX(" + (offsetX * layerCount - 0.1) + "px) translateY(" + (offsetY * layerCount - 0.1) + "px)";
+
+        });
+
+    </script>
+
+</body>
+
+</html>
