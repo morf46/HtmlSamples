@@ -73,27 +73,42 @@
         var interactXThreshold = 100;
         var topcard = document.getElementsByClassName("card")[0];
         var topcardRect = topcard.getBoundingClientRect();
-
+        var CardPicked = null;
         topcard.addEventListener('mousedown', function () {
 
-
-
-
+            CardPicked = topcard;
         });
-        topcard.addEventListener('mouseup', function () {
+        topcard.addEventListener('mouseup', function (event) {
+            CardPicked = null;
+            const x = event.clientX - topcardRect.left - 120;
+            const y = event.clientY - topcardRect.top - 120;
+
+            if (x > interactXThreshold) {
+                //RIGHT SWIPE
+            } else if (x < -interactXThreshold) {
+                //LEFT SWIPE
+            } else {
+                //RESET CARD
+            }
+
+            //reset transform
+            topcard.style.transform = "translate3D(" + 0 + "px, " + 0 + "px, 0) rotate(" + 0 + "deg)";
 
         });
         topcard.addEventListener('mousemove', function (event) {
-            var x = event.clientX - topcardRect.left - 120;
-            var y = event.clientY - topcardRect.top - 120;
-            var rot = interactMaxRotation * (x / interactXThreshold);
-            if (rot > interactMaxRotation) {
-                rot = interactMaxRotation;
-            } else if (rot < -interactMaxRotation) {
-                rot = -interactMaxRotation;
+
+            if (CardPicked != null && CardPicked !== undefined) {
+
+                const x = event.clientX - topcardRect.left - 120;
+                const y = event.clientY - topcardRect.top - 120;
+                const rot = interactMaxRotation * (x / interactXThreshold);
+                if (rot > interactMaxRotation) {
+                    rot = interactMaxRotation;
+                } else if (rot < -interactMaxRotation) {
+                    rot = -interactMaxRotation;
+                }
+                topcard.style.transform = "translate3D(" + x + "px, " + y + "px, 0) rotate(" + rot + "deg)";
             }
-            topcard.style.transform = "translate3D(" + x + "px, " + y + "px, 0) rotate(" + rot + "deg)";
-            console.log(topcard.left)
         });
 
     </script>
