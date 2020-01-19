@@ -1,0 +1,6 @@
+/* media print query add links*/
+@media print {
+    a::after {
+      content: " (" attr(href) ") ";
+    }
+  }

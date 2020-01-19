@@ -57,14 +57,17 @@
     <div class="cardbox">
 
 
+
         <div class="card">
-            <div class="shine"> </div> 
+            <div class="shine"> </div>
             <span class="cardcaption">CARD1</span>
         </div>
 
-
+        
 
     </div>
+
+    <div id="out"></div>
 
 
 
@@ -72,7 +75,7 @@
 
         var topcard = document.getElementsByClassName("card")[0];
         var shine = document.getElementsByClassName("shine")[0];
-
+        var out = document.getElementById("out");
 
         topcard.addEventListener('mousedown', function () {
 
@@ -86,8 +89,8 @@
         topcard.addEventListener('mousemove', function (event) {
             const rootElemWidth = topcard.parentNode.getBoundingClientRect().width;
             const rootElemHeight = topcard.parentNode.getBoundingClientRect().height;
-            const pageX = event.clientX;
-            const pageY = event.clientY;
+            const pageX = event.pageX;
+            const pageY = event.pageY;
             const bodyScrollTop = document.body.scrollTop || document.getElementsByTagName('html')[0].scrollTop;
             const bodyScrollLeft = document.body.scrollLeft;
             const offsets = topcard.getBoundingClientRect();
@@ -109,6 +112,7 @@
             shine.style.background = "linear-gradient(" + angle + "deg, rgba(255, 255, 255, " + (pageY - offsets.top - bodyScrollTop) / (rootElemHeight * 0.4) + ") 0%, rgba(255, 255, 255, 0) 80%)";
             shine.style.transform = "translateX(" + (offsetX * layerCount - 0.1) + "px) translateY(" + (offsetY * layerCount - 0.1) + "px)";
 
+            out.innerHTML = xRotate + " - " + yRotate;
         });
 
     </script>
